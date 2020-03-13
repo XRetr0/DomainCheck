@@ -5,4 +5,4 @@ It can be used for pentest.
 ## How to install it?
 sudo pip3 install -r requirements.txt
 
-python3 domaincheck.py
+python3 domaincheck.py --help
