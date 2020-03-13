@@ -16,7 +16,7 @@ def check(path):
     if '/' in path:
         file = str(path.split('/')[-1])
         file = file.replace('.txt','')
-        print("Your file: " + file)
+        print("Result will be saved in " + file)
         try:
             # Create target Directory
             os.mkdir(file)
