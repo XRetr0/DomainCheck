@@ -38,7 +38,7 @@ def check(path):
             req = requests.get(d,timeout=0.6)
             st = req.status_code
             print ("Url: "+d+" Status code: "+str(st))
-            if st == 301 or st == 302 or st == 403 or st == 404:
+            if st == 301 or st == 302 or st == 403 or st == 404 or st == 500:
                 with open(file + '/'+'result_not200.txt', 'a') as f:
                     f.write(d + '\n')
             elif st == 200:
