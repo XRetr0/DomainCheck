@@ -61,9 +61,10 @@ def check(domains):
 @click.command()
 @click.option(
     '--path', '-p',
-    help='your path to file',
+    help='Your path to file',
 )
-def main(path):
+@click.option('--threads', '-t', default=50, help="Number of threads (50 by default)")
+def main(path, threads):
     """
     A little tool for sort your domains by response code
 
@@ -83,9 +84,8 @@ def main(path):
     with open(path, 'r') as f:
         domains = f.readlines()
 
-    domains_parts = np.array_split(domains, 50)
-
-    for i in range(0, 50):
+    domains_parts = np.array_split(domains, threads)
+    for i in range(0, threads):
         thr = threading.Thread(target=check, args=(domains_parts[i], ))
         thr.start()
 
