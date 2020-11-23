@@ -32,11 +32,7 @@ def dir_create(path):
 
 
 def check(domains):
-
-    # dir_create(path)
-    #domains = list(domains)
     for d in domains:
-        print(d)
         d = d.replace('\n', '')
         if 'http://' in d or 'https://' in d:
             pass
@@ -46,7 +42,7 @@ def check(domains):
         try:
             req = requests.get(d, timeout=3, allow_redirects=True, verify=False)
             d_redirected = ''
-            if req.url[:-1] != d and req.url[:-1] != '':
+            if req.url[:-1] != d and req.url[:-1] != '':  # req.url[:-1] - removes "/" at the end of url
                 d_redirected = ' --> ' + req.url[:-1]
             print("Url: " + d + d_redirected + " Status code: " + str(req.status_code))
             if req.status_code == 200:
@@ -77,8 +73,8 @@ def main(path):
     """
 
     dir_create(path)
-
     global domains
+
     with open(path, 'r') as f:
         old_data = f.read()
     new_data = old_data.replace('<BR>', '\n')
@@ -86,7 +82,9 @@ def main(path):
         f.write(new_data)
     with open(path, 'r') as f:
         domains = f.readlines()
+
     domains_parts = np.array_split(domains, 50)
+
     for i in range(0, 50):
         thr = threading.Thread(target=check, args=(domains_parts[i], ))
         thr.start()
