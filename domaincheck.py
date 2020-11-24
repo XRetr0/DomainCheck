@@ -47,15 +47,17 @@ def check(domains):
             print("Url: " + d + d_redirected + " Status code: " + str(req.status_code))
             if req.status_code == 200:
                 with open(folder_name + '/'+'result_200.txt', 'a') as f:
-                    f.write(d + d_redirected + '\n')
+                    f.write(d + d_redirected + ' [' + str(req.status_code) + ']'+ '\n')
             else:
                 with open(folder_name + '/'+'result_not200.txt', 'a') as f:
-                    f.write(d + d_redirected + '\n')
+                    f.write(d + d_redirected + ' [' + str(req.status_code) + ']'+ '\n')
         except requests.exceptions.SSLError as ex_ssl:
             print("SSL ERROR!")
 
         except requests.exceptions.ConnectionError as ex:
             pass
+        except Exception as ex:
+          pass
 
 
 @click.command()
